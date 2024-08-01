@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/adisatr7/cosette_go/internal/handlers/responses"
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
 )
@@ -46,7 +47,7 @@ func main() {
 	}
 	defer bot.Close()
 
-	fmt.Println("Bot is now running. Press CTRL-C to exit.")
+	fmt.Println(responses.AtMentioned())
 
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
