@@ -14,10 +14,15 @@ import (
 
 
 func main() {
-	err := godotenv.Load("../../.env")
-	if err != nil {
-		log.Fatal("Error loading .env file!")
-	}
+	// Try to load .env from the current directory
+    err := godotenv.Load(".env")
+    if err != nil {
+        // If it fails, try to load .env from the parent directory
+        err = godotenv.Load("../../.env")
+        if err != nil {
+            log.Fatalf("Error loading .env file from both current and parent directories")
+        }
+    }
 
 	token := os.Getenv("TOKEN")
 	if token == "" {
