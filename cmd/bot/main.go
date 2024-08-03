@@ -7,16 +7,22 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/adisatr7/cosette_go/internal/handlers/responses"
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
 )
 
 
 func main() {
-	err := godotenv.Load("../../.env")
-	if err != nil {
-		log.Fatal("Error loading .env file!")
-	}
+	// Try to load .env from the current directory
+    err := godotenv.Load(".env")
+    if err != nil {
+        // If it fails, try to load .env from the parent directory
+        err = godotenv.Load("../../.env")
+        if err != nil {
+            log.Fatalf("Error loading .env file from both current and parent directories")
+        }
+    }
 
 	token := os.Getenv("TOKEN")
 	if token == "" {
@@ -46,7 +52,7 @@ func main() {
 	}
 	defer bot.Close()
 
-	fmt.Println("Bot is now running. Press CTRL-C to exit.")
+	fmt.Println(responses.AtMentioned())
 
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)

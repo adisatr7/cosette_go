@@ -14,8 +14,8 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o bot .
+RUN go build -o app .
 
 # Command to run the executable
-CMD ["./bot"]
+CMD ["./app"]
 

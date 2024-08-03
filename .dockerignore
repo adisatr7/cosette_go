@@ -34,3 +34,7 @@
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Temporary files
+temp/
+tmp/
